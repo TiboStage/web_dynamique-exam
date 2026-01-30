@@ -1,0 +1,127 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription - StoryForge{% endblock %}
+
+{% block body %}
+<div class="auth-container">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-8 col-lg-5">
+                <div class="card auth-card shadow">
+                    <div class="card-body">
+                        <div class="auth-header">
+                            <h1><i class="bi bi-person-plus me-2"></i>Inscription</h1>
+                            <p>Créez votre compte StoryForge gratuitement</p>
+                        </div>
+                        
+                        {{ form_start(registrationForm) }}
+                            <div class="mb-3">
+                                {{ form_label(registrationForm.email) }}
+                                <div class="input-group">
+                                    <span class="input-group-text">
+                                        <i class="bi bi-envelope"></i>
+                                    </span>
+                                    {{ form_widget(registrationForm.email) }}
+                                </div>
+                                {{ form_errors(registrationForm.email) }}
+                            </div>
+                            
+                            <div class="mb-3">
+                                {{ form_label(registrationForm.username) }}
+                                <div class="input-group">
+                                    <span class="input-group-text">
+                                        <i class="bi bi-person"></i>
+                                    </span>
+                                    {{ form_widget(registrationForm.username) }}
+                                </div>
+                                <div class="form-text">3 à 30 caractères, lettres, chiffres et underscores uniquement.</div>
+                                {{ form_errors(registrationForm.username) }}
+                            </div>
+                            
+                            <div class="mb-3">
+                                {{ form_label(registrationForm.plainPassword.first) }}
+                                <div class="input-group">
+                                    <span class="input-group-text">
+                                        <i class="bi bi-lock"></i>
+                                    </span>
+                                    {{ form_widget(registrationForm.plainPassword.first) }}
+                                </div>
+                                <div class="form-text">Minimum 8 caractères.</div>
+                                {{ form_errors(registrationForm.plainPassword.first) }}
+                            </div>
+                            
+                            <div class="mb-3">
+                                {{ form_label(registrationForm.plainPassword.second) }}
+                                <div class="input-group">
+                                    <span class="input-group-text">
+                                        <i class="bi bi-lock-fill"></i>
+                                    </span>
+                                    {{ form_widget(registrationForm.plainPassword.second) }}
+                                </div>
+                                {{ form_errors(registrationForm.plainPassword.second) }}
+                            </div>
+                            
+                            <div class="mb-4">
+                                <div class="form-check">
+                                    {{ form_widget(registrationForm.agreeTerms, {'attr': {'class': 'form-check-input'}}) }}
+                                    {{ form_label(registrationForm.agreeTerms, null, {'label_attr': {'class': 'form-check-label'}}) }}
+                                </div>
+                                {{ form_errors(registrationForm.agreeTerms) }}
+                            </div>
+                            
+                            <div class="d-grid mb-3">
+                                <button type="submit" class="btn btn-primary btn-lg">
+                                    <i class="bi bi-person-plus me-2"></i>Créer mon compte
+                                </button>
+                            </div>
+                        {{ form_end(registrationForm) }}
+                        
+                        <hr>
+                        
+                        <div class="text-center">
+                            <p class="mb-0">
+                                Déjà inscrit ? 
+                                <a href="{{ path('app_login') }}" class="text-primary fw-semibold">
+                                    Se connecter
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{# Modal CGU #}
+<div class="modal fade" id="cguModal" tabindex="-1" aria-labelledby="cguModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="cguModalLabel">Conditions Générales d'Utilisation</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+            </div>
+            <div class="modal-body">
+                <h6>Article 1 - Objet</h6>
+                <p>Les présentes CGU définissent les modalités d'utilisation de la plateforme StoryForge.</p>
+                
+                <h6>Article 2 - Inscription</h6>
+                <p>L'inscription est gratuite et ouverte à toute personne de plus de 13 ans.</p>
+                
+                <h6>Article 3 - Données personnelles</h6>
+                <p>Vos données sont traitées conformément au RGPD. Consultez notre politique de confidentialité.</p>
+                
+                <h6>Article 4 - Propriété intellectuelle</h6>
+                <p>Les contenus que vous créez vous appartiennent.</p>
+                
+                <p class="mt-4">
+                    <a href="{{ path('app_cgu') }}" target="_blank">Lire les CGU complètes <i class="bi bi-box-arrow-up-right"></i></a>
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">J'ai compris</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,159 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}StoryForge - Plateforme collaborative de création narrative{% endblock %}
+
+{% block body %}
+{# Hero Section #}
+<section class="hero-section">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 mb-5 mb-lg-0">
+                <h1 class="display-4 fw-bold mb-4">
+                    Forgez vos histoires <br>
+                    <span class="text-warning">ensemble</span>
+                </h1>
+                <p class="lead mb-4">
+                    StoryForge est la plateforme collaborative qui permet aux créateurs
+                    de contenus narratifs de structurer, organiser et partager leurs
+                    projets en équipe.
+                </p>
+                <div class="d-flex flex-column flex-sm-row gap-3">
+                    {% if app.user %}
+                        <a href="{{ path('app_dashboard') }}" class="btn btn-warning btn-lg">
+                            <i class="bi bi-grid me-2"></i> Accéder au Dashboard
+                        </a>
+                    {% else %}
+                        <a href="{{ path('app_register') }}" class="btn btn-warning btn-lg">
+                            <i class="bi bi-rocket-takeoff me-2"></i> Commencer gratuitement
+                        </a>
+                        <a href="{{ path('app_login') }}" class="btn btn-outline-light btn-lg">
+                            <i class="bi bi-box-arrow-in-right me-2"></i> Se connecter
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-lg-6 text-center">
+                <div class="p-5">
+                    <i class="bi bi-book display-1" style="font-size: 12rem; opacity: 0.3;"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{# Features Section #}
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold">Pourquoi StoryForge ?</h2>
+            <p class="text-muted">Des outils pensés pour les créateurs de contenus narratifs</p>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card h-100 feature-card">
+                    <div class="card-body">
+                        <div class="feature-icon">
+                            <i class="bi bi-people"></i>
+                        </div>
+                        <h3>Collaboration</h3>
+                        <p>Travaillez en équipe sur vos projets narratifs. Partagez personnages,
+                           lieux et scénarios avec vos collaborateurs.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card h-100 feature-card">
+                    <div class="card-body">
+                        <div class="feature-icon">
+                            <i class="bi bi-diagram-3"></i>
+                        </div>
+                        <h3>Organisation</h3>
+                        <p>Structurez vos univers fictifs avec des outils dédiés :
+                           fiches personnages, cartes de lieux, timeline des événements.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card h-100 feature-card">
+                    <div class="card-body">
+                        <div class="feature-icon">
+                            <i class="bi bi-shield-check"></i>
+                        </div>
+                        <h3>Sécurité</h3>
+                        <p>Vos créations vous appartiennent. Données chiffrées,
+                           accès sécurisé et conformité RGPD garantis.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{# How it works Section #}
+<section class="py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold">Comment ça marche ?</h2>
+            <p class="text-muted">Trois étapes pour commencer à créer</p>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="text-center">
+                    <div class="rounded-circle bg-primary text-white d-inline-flex align-items-center justify-content-center mb-3"
+                         style="width: 60px; height: 60px; font-size: 1.5rem; font-weight: bold;">
+                        1
+                    </div>
+                    <h4>Créez votre compte</h4>
+                    <p class="text-muted">Inscription gratuite en quelques secondes.
+                       Aucune carte bancaire requise.</p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="text-center">
+                    <div class="rounded-circle bg-primary text-white d-inline-flex align-items-center justify-content-center mb-3"
+                         style="width: 60px; height: 60px; font-size: 1.5rem; font-weight: bold;">
+                        2
+                    </div>
+                    <h4>Créez un projet</h4>
+                    <p class="text-muted">Démarrez votre premier projet narratif et
+                       commencez à structurer votre univers.</p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="text-center">
+                    <div class="rounded-circle bg-primary text-white d-inline-flex align-items-center justify-content-center mb-3"
+                         style="width: 60px; height: 60px; font-size: 1.5rem; font-weight: bold;">
+                        3
+                    </div>
+                    <h4>Collaborez</h4>
+                    <p class="text-muted">Invitez vos collaborateurs et travaillez
+                       ensemble sur votre création.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{# CTA Section #}
+<section class="py-5 bg-gradient-primary text-white">
+    <div class="container text-center">
+        <h2 class="fw-bold mb-3">Prêt à commencer ?</h2>
+        <p class="lead mb-4">Rejoignez StoryForge et donnez vie à vos histoires</p>
+        {% if not app.user %}
+            <a href="{{ path('app_register') }}" class="btn btn-warning btn-lg">
+                <i class="bi bi-person-plus me-2"></i> Créer mon compte gratuit
+            </a>
+        {% else %}
+            <a href="{{ path('app_dashboard') }}" class="btn btn-warning btn-lg">
+                <i class="bi bi-arrow-right me-2"></i> Aller au Dashboard
+            </a>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

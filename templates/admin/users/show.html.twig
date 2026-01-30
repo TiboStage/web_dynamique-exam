@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+{% block title %}{{ user.username }} - Admin{% endblock %}
+{% block body %}
+<div class="container-fluid py-4">
+    <div class="row">
+        <div class="col-lg-2 mb-4">
+            <div class="card bg-dark text-white"><div class="card-body p-3">
+                <nav class="nav flex-column">
+                    <a class="nav-link" href="{{ path('app_admin_dashboard') }}"><i class="bi bi-speedometer2"></i> Dashboard</a>
+                    <a class="nav-link" href="{{ path('app_admin_users') }}"><i class="bi bi-people"></i> Utilisateurs</a>
+                </nav>
+            </div></div>
+        </div>
+        <div class="col-lg-10">
+            <a href="{{ path('app_admin_users') }}" class="btn btn-outline-secondary mb-3"><i class="bi bi-arrow-left"></i> Retour</a>
+            
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="card text-center">
+                        <div class="card-body py-4">
+                            <div class="user-avatar large mx-auto mb-3">{{ user.username|first|upper }}</div>
+                            <h4>{{ user.username }}</h4>
+                            <p class="text-muted">{{ user.email }}</p>
+                            {% if user.isAdmin %}<span class="badge bg-danger">Admin</span>{% else %}<span class="badge bg-primary">User</span>{% endif %}
+                            {% if user.isBanned %}<span class="badge bg-danger ms-1">Banni</span>{% endif %}
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-8">
+                    <div class="card mb-4">
+                        <div class="card-header"><h5 class="mb-0">Informations</h5></div>
+                        <div class="card-body">
+                            <div class="row mb-2"><div class="col-4 text-muted">ID</div><div class="col-8">{{ user.id }}</div></div>
+                            <div class="row mb-2"><div class="col-4 text-muted">Pseudo</div><div class="col-8">{{ user.username }}</div></div>
+                            <div class="row mb-2"><div class="col-4 text-muted">Email</div><div class="col-8">{{ user.email }}</div></div>
+                            <div class="row mb-2"><div class="col-4 text-muted">Inscription</div><div class="col-8">{{ user.createdAt|date('d/m/Y H:i') }}</div></div>
+                            <div class="row mb-2"><div class="col-4 text-muted">Dernière connexion</div><div class="col-8">{{ user.lastLoginAt ? user.lastLoginAt|date('d/m/Y H:i') : 'Jamais' }}</div></div>
+                        </div>
+                    </div>
+                    
+                    {% if user != app.user %}
+                    <div class="card">
+                        <div class="card-header"><h5 class="mb-0">Actions</h5></div>
+                        <div class="card-body">
+                            <div class="d-flex gap-2 flex-wrap">
+                                {% if user.isBanned %}
+                                <form action="{{ path('app_admin_user_unban', {id: user.id}) }}" method="post">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('unban-user-' ~ user.id) }}">
+                                    <button class="btn btn-success"><i class="bi bi-person-check me-1"></i>Débannir</button>
+                                </form>
+                                {% else %}
+                                <form action="{{ path('app_admin_user_ban', {id: user.id}) }}" method="post">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('ban-user-' ~ user.id) }}">
+                                    <button class="btn btn-danger"><i class="bi bi-person-x me-1"></i>Bannir</button>
+                                </form>
+                                {% endif %}
+                                
+                                {% if user.isAdmin %}
+                                <form action="{{ path('app_admin_user_demote', {id: user.id}) }}" method="post">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('demote-user-' ~ user.id) }}">
+                                    <button class="btn btn-warning"><i class="bi bi-arrow-down me-1"></i>Rétrograder</button>
+                                </form>
+                                {% else %}
+                                <form action="{{ path('app_admin_user_promote', {id: user.id}) }}" method="post">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('promote-user-' ~ user.id) }}">
+                                    <button class="btn btn-primary"><i class="bi bi-arrow-up me-1"></i>Promouvoir Admin</button>
+                                </form>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

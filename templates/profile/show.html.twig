@@ -1,0 +1,90 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon profil - StoryForge{% endblock %}
+
+{% block body %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-lg-4 mb-4">
+            <div class="card text-center">
+                <div class="card-body py-5">
+                    <div class="user-avatar large mx-auto mb-3">{{ user.username|first|upper }}</div>
+                    <h4 class="mb-1">{{ user.username }}</h4>
+                    <p class="text-muted">{{ user.email }}</p>
+                    {% if user.isAdmin %}<span class="badge bg-danger">Administrateur</span>{% else %}<span class="badge bg-primary">Utilisateur</span>{% endif %}
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-8">
+            <div class="card mb-4">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0"><i class="bi bi-person me-2"></i>Informations du compte</h5>
+                    <a href="{{ path('app_profile_edit') }}" class="btn btn-sm btn-primary"><i class="bi bi-pencil me-1"></i>Modifier</a>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-3">
+                        <div class="col-sm-4 text-muted">Pseudo</div>
+                        <div class="col-sm-8">{{ user.username }}</div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-sm-4 text-muted">Email</div>
+                        <div class="col-sm-8">{{ user.email }}</div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-sm-4 text-muted">Date d'inscription</div>
+                        <div class="col-sm-8">{{ user.createdAt|date('d/m/Y à H:i') }}</div>
+                    </div>
+                    {% if user.lastLoginAt %}
+                    <div class="row mb-3">
+                        <div class="col-sm-4 text-muted">Dernière connexion</div>
+                        <div class="col-sm-8">{{ user.lastLoginAt|date('d/m/Y à H:i') }}</div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <div class="card mb-4">
+                <div class="card-header"><h5 class="mb-0"><i class="bi bi-shield-lock me-2"></i>Sécurité</h5></div>
+                <div class="card-body">
+                    <a href="{{ path('app_profile_change_password') }}" class="btn btn-outline-primary">
+                        <i class="bi bi-key me-1"></i>Changer mon mot de passe
+                    </a>
+                </div>
+            </div>
+            
+            <div class="card border-danger">
+                <div class="card-header bg-danger text-white"><h5 class="mb-0"><i class="bi bi-exclamation-triangle me-2"></i>Zone dangereuse</h5></div>
+                <div class="card-body">
+                    <p class="text-muted">La suppression de votre compte est définitive. Toutes vos données seront effacées.</p>
+                    <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                        <i class="bi bi-trash me-1"></i>Supprimer mon compte
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="deleteModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title"><i class="bi bi-exclamation-triangle me-2"></i>Confirmer la suppression</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>Êtes-vous sûr de vouloir supprimer votre compte ?</p>
+                <p class="text-danger fw-bold">Cette action est irréversible.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                <form action="{{ path('app_profile_delete') }}" method="post" class="d-inline">
+                    <input type="hidden" name="_token" value="{{ csrf_token('delete-account') }}">
+                    <button type="submit" class="btn btn-danger"><i class="bi bi-trash me-1"></i>Supprimer définitivement</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

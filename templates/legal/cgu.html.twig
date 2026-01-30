@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+{% block title %}CGU - StoryForge{% endblock %}
+{% block body %}
+<div class="container py-5">
+    <div class="row justify-content-center"><div class="col-lg-8">
+        <h1 class="mb-4">Conditions Générales d'Utilisation</h1>
+        <div class="card"><div class="card-body">
+            <h4>Article 1 - Objet</h4>
+            <p>Les présentes CGU définissent les modalités d'utilisation de StoryForge.</p>
+            <h4>Article 2 - Inscription</h4>
+            <p>L'inscription est gratuite. L'utilisateur fournit des informations exactes.</p>
+            <h4>Article 3 - Propriété intellectuelle</h4>
+            <p>Les contenus créés appartiennent aux utilisateurs.</p>
+            <h4>Article 4 - Données personnelles</h4>
+            <p>Traitement conforme au RGPD. Voir <a href="{{ path('app_privacy') }}">politique de confidentialité</a>.</p>
+            <h4>Article 5 - Droit applicable</h4>
+            <p>Droit belge applicable.</p>
+        </div></div>
+    </div></div>
+</div>
+{% endblock %}

@@ -1,0 +1,95 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Connexion - StoryForge{% endblock %}
+
+{% block body %}
+    <div class="auth-container">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12 col-md-8 col-lg-5">
+                    <div class="card auth-card shadow">
+                        <div class="card-body">
+                            <div class="auth-header">
+                                <h1><i class="bi bi-box-arrow-in-right me-2"></i>Connexion</h1>
+                                <p>Connectez-vous à votre compte StoryForge</p>
+                            </div>
+
+                            {% if error %}
+                                <div class="alert alert-danger" role="alert">
+                                    <i class="bi bi-exclamation-circle me-2"></i>
+                                    {{ error.messageKey|trans(error.messageData, 'security') }}
+                                </div>
+                            {% endif %}
+
+                            <form method="post">
+                                <div class="mb-3">
+                                    <label for="inputEmail" class="form-label">Adresse email</label>
+                                    <div class="input-group">
+                                    <span class="input-group-text">
+                                        <i class="bi bi-envelope"></i>
+                                    </span>
+                                        <input type="email"
+                                               value="{{ last_username }}"
+                                               name="_username"
+                                               id="inputEmail"
+                                               class="form-control"
+                                               placeholder="votre@email.com"
+                                               autocomplete="email"
+                                               required
+                                               autofocus>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="inputPassword" class="form-label">Mot de passe</label>
+                                    <div class="input-group">
+                                    <span class="input-group-text">
+                                        <i class="bi bi-lock"></i>
+                                    </span>
+                                        <input type="password"
+                                               name="_password"
+                                               id="inputPassword"
+                                               class="form-control"
+                                               placeholder="Votre mot de passe"
+                                               autocomplete="current-password"
+                                               required>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3 form-check">
+                                    <input type="checkbox"
+                                           name="_remember_me"
+                                           id="rememberMe"
+                                           class="form-check-input">
+                                    <label class="form-check-label" for="rememberMe">
+                                        Se souvenir de moi
+                                    </label>
+                                </div>
+
+                                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+                                <div class="d-grid mb-3">
+                                    <button class="btn btn-primary btn-lg" type="submit">
+                                        <i class="bi bi-box-arrow-in-right me-2"></i>Se connecter
+                                    </button>
+                                </div>
+                            </form>
+
+                            <hr>
+
+                            <div class="text-center">
+                                <p class="mb-0">
+                                    Pas encore de compte ?
+                                    <a href="{{ path('app_register') }}" class="text-primary fw-semibold">
+                                        Créer un compte
+                                    </a>
+                                </p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Dashboard - StoryForge{% endblock %}
+
+{% block body %}
+<div class="container py-5">
+    <div class="row mb-4">
+        <div class="col">
+            <div class="d-flex align-items-center">
+                <div class="user-avatar large me-4">{{ user.username|first|upper }}</div>
+                <div>
+                    <h1 class="mb-1">Bienvenue, {{ user.username }} !</h1>
+                    <p class="text-muted mb-0">
+                        <i class="bi bi-clock me-1"></i>Membre depuis le {{ user.createdAt|date('d/m/Y') }}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row g-4">
+        <div class="col-lg-8">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="bi bi-stars text-warning me-2"></i>Bienvenue sur StoryForge !</h5>
+                    <p class="card-text">StoryForge est votre espace de création narrative. Bientôt, vous pourrez créer des projets, gérer vos personnages et construire des univers entiers.</p>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header"><h5 class="mb-0"><i class="bi bi-lightning me-2"></i>Actions rapides</h5></div>
+                <div class="card-body">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <a href="{{ path('app_profile') }}" class="btn btn-outline-primary w-100 py-3">
+                                <i class="bi bi-person-circle d-block fs-3 mb-2"></i>Voir mon profil
+                            </a>
+                        </div>
+                        <div class="col-md-6">
+                            <a href="{{ path('app_profile_edit') }}" class="btn btn-outline-primary w-100 py-3">
+                                <i class="bi bi-pencil-square d-block fs-3 mb-2"></i>Modifier mon profil
+                            </a>
+                        </div>
+                        <div class="col-md-6">
+                            <a href="{{ path('app_profile_change_password') }}" class="btn btn-outline-secondary w-100 py-3">
+                                <i class="bi bi-key d-block fs-3 mb-2"></i>Changer mot de passe
+                            </a>
+                        </div>
+                        <div class="col-md-6">
+                            <button class="btn btn-outline-secondary w-100 py-3" disabled>
+                                <i class="bi bi-folder-plus d-block fs-3 mb-2"></i>Créer un projet <span class="badge bg-secondary">Bientôt</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-4">
+            <div class="card mb-4">
+                <div class="card-header"><h5 class="mb-0"><i class="bi bi-person me-2"></i>Mon compte</h5></div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item d-flex justify-content-between"><span class="text-muted">Pseudo</span><strong>{{ user.username }}</strong></li>
+                    <li class="list-group-item d-flex justify-content-between"><span class="text-muted">Email</span><strong>{{ user.email }}</strong></li>
+                    <li class="list-group-item d-flex justify-content-between"><span class="text-muted">Rôle</span>
+                        {% if user.isAdmin %}<span class="badge bg-danger">Admin</span>{% else %}<span class="badge bg-primary">Utilisateur</span>{% endif %}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
